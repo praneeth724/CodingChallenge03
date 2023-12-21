@@ -1,0 +1,37 @@
+using UnityEngine;
+
+public class ChangeColorOnMouseClick : MonoBehaviour
+{
+    public Color[] colors;  // Array of colors to cycle through
+    private int currentIndex = 0;  // Index of the current color
+
+    void Update()
+    {
+        // Check if the left mouse button is pressed
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Change the color of the game object
+            ChangeColor();
+        }
+    }
+
+    void ChangeColor()
+    {
+        // Access the Renderer component of the game object
+        Renderer renderer = GetComponent<Renderer>();
+
+        // Check if the Renderer component exists
+        if (renderer != null)
+        {
+            // Change the material color to the next color in the array
+            renderer.material.color = colors[currentIndex];
+
+            // Increment the index to cycle through the colors
+            currentIndex = (currentIndex + 1) % colors.Length;
+        }
+        else
+        {
+            Debug.LogError("Renderer component not found on the game object.");
+        }
+    }
+}
